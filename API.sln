@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangoFusion_API", "MangoFus
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "exerciseAPI", "exerciseAPI\exerciseAPI.csproj", "{3CC62730-1FA1-4EB1-9448-D961158EA953}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dexerciseAPI", "dexerciseAPI\dexerciseAPI.csproj", "{4F81ACDD-C9CD-4D5D-BB48-7C9064AB2CB7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "northwindreactapi", "northwindreactapi\northwindreactapi.csproj", "{1CD7A58D-D6D1-424E-A53A-4F4FEA924181}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{3CC62730-1FA1-4EB1-9448-D961158EA953}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CC62730-1FA1-4EB1-9448-D961158EA953}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CC62730-1FA1-4EB1-9448-D961158EA953}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4F81ACDD-C9CD-4D5D-BB48-7C9064AB2CB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4F81ACDD-C9CD-4D5D-BB48-7C9064AB2CB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4F81ACDD-C9CD-4D5D-BB48-7C9064AB2CB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4F81ACDD-C9CD-4D5D-BB48-7C9064AB2CB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CD7A58D-D6D1-424E-A53A-4F4FEA924181}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CD7A58D-D6D1-424E-A53A-4F4FEA924181}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CD7A58D-D6D1-424E-A53A-4F4FEA924181}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CD7A58D-D6D1-424E-A53A-4F4FEA924181}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
