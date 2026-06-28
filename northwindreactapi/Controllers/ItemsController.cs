@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using northwindreactapi.Data;
-using northwindreactapi.Models;
+using northwindreactapi.Models.Project1;
 
 namespace northwindreactapi.Controllers
 {
@@ -29,10 +29,10 @@ namespace northwindreactapi.Controllers
         }
 
         // GET: api/Items/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Item>> GetItem(int id)
+        [HttpGet("{itemId}")]
+        public async Task<ActionResult<Item>> GetItem(int itemId)
         {
-            var item = await _context.Items.FindAsync(id);
+            var item = await _context.Items.FindAsync(itemId);
 
             if (item == null)
             {
@@ -44,10 +44,10 @@ namespace northwindreactapi.Controllers
 
         // PUT: api/Items/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutItem(int id, Item item)
+        [HttpPut("{itemId}")]
+        public async Task<IActionResult> PutItem(int itemId, Item item)
         {
-            if (id != item.Id)
+            if (itemId != item.ItemId)
             {
                 return BadRequest();
             }
@@ -60,7 +60,7 @@ namespace northwindreactapi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ItemExists(id))
+                if (!ItemExists(itemId))
                 {
                     return NotFound();
                 }
@@ -81,14 +81,14 @@ namespace northwindreactapi.Controllers
             _context.Items.Add(item);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetItem", new { id = item.Id }, item);
+            return CreatedAtAction("GetItem", new { id = item.ItemId }, item);
         }
 
         // DELETE: api/Items/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteItem(int id)
+        [HttpDelete("{itemId}")]
+        public async Task<IActionResult> DeleteItem(int itemId)
         {
-            var item = await _context.Items.FindAsync(id);
+            var item = await _context.Items.FindAsync(itemId);
             if (item == null)
             {
                 return NotFound();
@@ -100,9 +100,9 @@ namespace northwindreactapi.Controllers
             return NoContent();
         }
 
-        private bool ItemExists(int id)
+        private bool ItemExists(int itemId)
         {
-            return _context.Items.Any(e => e.Id == id);
+            return _context.Items.Any(e => e.ItemId == itemId);
         }
     }
 }

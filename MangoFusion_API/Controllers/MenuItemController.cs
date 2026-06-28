@@ -24,7 +24,16 @@ namespace MangoFusion_API.Controllers
         [HttpGet]
         public IActionResult GetMenuItems()
         {
-            _response.Result = _dbContext.MenuItems.ToList();
+            List<MenuItem > menuItems = _dbContext.MenuItems.ToList();
+            List<OrderDetail> orderDetailsWithRatings = _dbContext.OrderDetails.Where(x => x.Rating != null).ToList();
+
+            foreach (var menuItem in menuItems)
+            {
+                var ratings=orderDetailsWithRatings.Where(x=>x.MenuItemId==menuItem.Id).Select(x=>x.Rating.Value) ;
+                double avgRating = ratings.Any() ? ratings.Average() : 0;
+                menuItem.Rating = avgRating;
+            }
+            _response.Result = menuItems;
             _response.StatusCode = HttpStatusCode.OK;
             return Ok(_response);
         }
@@ -38,6 +47,20 @@ namespace MangoFusion_API.Controllers
                 return BadRequest(_response);
             }
             MenuItem? menuItem = _dbContext.MenuItems.FirstOrDefault(x => x.Id == id);
+
+
+            List<OrderDetail>  orderDetailsWithRating = _dbContext.OrderDetails
+                .Where(x => x.Rating != null&&x.MenuItemId==menuItem.Id).ToList() ;
+
+            
+                var ratings = orderDetailsWithRating .Select(x => x.Rating.Value);
+                double avgRating = ratings.Any() ? ratings.Average() : 0;
+                menuItem.Rating = avgRating;
+             
+
+
+
+
             _response.Result = menuItem;
             _response.StatusCode = HttpStatusCode.OK;
             return Ok(_response);

@@ -19,7 +19,8 @@ namespace MangoFusion_API.Models
         [Required]
         public string ItemName {  get; set; }=string.Empty;
         [Required]
-        public double Price {  get; set; } 
+        public double Price {  get; set; }
+        public int? Rating { get; set; } = null;
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace exerciseAPI.Models
 {
@@ -16,5 +17,7 @@ namespace exerciseAPI.Models
         [Required]
 
         public string Image { get; set; } = string.Empty;
+        [NotMapped]
+        public double Rating { get; set; }
     }
 }

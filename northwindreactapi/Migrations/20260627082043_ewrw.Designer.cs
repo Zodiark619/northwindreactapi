@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using northwindreactapi.Data;
 
@@ -11,9 +12,11 @@ using northwindreactapi.Data;
 namespace northwindreactapi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260627082043_ewrw")]
+    partial class ewrw
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -220,13 +223,13 @@ namespace northwindreactapi.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("northwindreactapi.Models.Project1.Item", b =>
+            modelBuilder.Entity("northwindreactapi.Models.Item", b =>
                 {
-                    b.Property<int>("ItemId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ItemId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -235,32 +238,32 @@ namespace northwindreactapi.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("ItemId");
+                    b.HasKey("Id");
 
                     b.ToTable("Items");
 
                     b.HasData(
                         new
                         {
-                            ItemId = 1,
+                            Id = 1,
                             Name = "Chocolate A",
                             Price = 32.43m
                         },
                         new
                         {
-                            ItemId = 2,
+                            Id = 2,
                             Name = "Rice B",
                             Price = 122.3m
                         },
                         new
                         {
-                            ItemId = 3,
+                            Id = 3,
                             Name = "Soda C",
                             Price = 7.99m
                         });
                 });
 
-            modelBuilder.Entity("northwindreactapi.Models.Project1.OrderDetail", b =>
+            modelBuilder.Entity("northwindreactapi.Models.OrderDetail", b =>
                 {
                     b.Property<int>("OrderDetailId")
                         .ValueGeneratedOnAdd()
@@ -275,9 +278,6 @@ namespace northwindreactapi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("LineTotal")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<int>("OrderHeaderId")
                         .HasColumnType("int");
 
@@ -289,12 +289,14 @@ namespace northwindreactapi.Migrations
 
                     b.HasKey("OrderDetailId");
 
+                    b.HasIndex("ItemId");
+
                     b.HasIndex("OrderHeaderId");
 
                     b.ToTable("OrderDetails");
                 });
 
-            modelBuilder.Entity("northwindreactapi.Models.Project1.OrderHeader", b =>
+            modelBuilder.Entity("northwindreactapi.Models.OrderHeader", b =>
                 {
                     b.Property<int>("OrderHeaderId")
                         .ValueGeneratedOnAdd()
@@ -304,7 +306,7 @@ namespace northwindreactapi.Migrations
 
                     b.Property<string>("IdentityUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
@@ -316,6 +318,8 @@ namespace northwindreactapi.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("OrderHeaderId");
+
+                    b.HasIndex("IdentityUserId");
 
                     b.ToTable("OrderHeaders");
                 });
@@ -371,18 +375,35 @@ namespace northwindreactapi.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("northwindreactapi.Models.Project1.OrderDetail", b =>
+            modelBuilder.Entity("northwindreactapi.Models.OrderDetail", b =>
                 {
-                    b.HasOne("northwindreactapi.Models.Project1.OrderHeader", "OrderHeader")
+                    b.HasOne("northwindreactapi.Models.Item", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("northwindreactapi.Models.OrderHeader", null)
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderHeaderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("OrderHeader");
+                    b.Navigation("Item");
                 });
 
-            modelBuilder.Entity("northwindreactapi.Models.Project1.OrderHeader", b =>
+            modelBuilder.Entity("northwindreactapi.Models.OrderHeader", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("IdentityUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("IdentityUser");
+                });
+
+            modelBuilder.Entity("northwindreactapi.Models.OrderHeader", b =>
                 {
                     b.Navigation("OrderDetails");
                 });

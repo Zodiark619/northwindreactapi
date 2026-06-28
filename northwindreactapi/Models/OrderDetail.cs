@@ -1,7 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using northwindreactapi.Models.Project1;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace exerciseAPI.Models
+namespace northwindreactapi.Models
 {
     public class OrderDetail
     {
@@ -10,17 +11,15 @@ namespace exerciseAPI.Models
         [Required]
         public int OrderHeaderId { get; set; }
         [Required]
-        public int MenuItemId { get; set; }
-        [ForeignKey("MenuItemId")]
-        public MenuItem? MenuItem { get; set; }
+        public int ItemId { get; set; }
+        [ForeignKey("ItemId")]
+        public Item? Item { get; set; }
 
         [Required]
         public int Quantity { get; set; }
         [Required]
         public string ItemName { get; set; } = string.Empty;
         [Required]
-        public double Price { get; set; }
-        public int? Rating { get; set; } = null;
-
+        public decimal Price { get; set; } 
     }
 }
